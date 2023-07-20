@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+
+    <!-- Link thư viện Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Danh sách sản phẩm</h1>
+
+        {{#each product}}
+        <h1>{{id}}</h1>
+        {{/each}}
+
+        <!-- Bảng sản phẩm -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Màu sắc</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <h1>1</h1>
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{nameproduct}}</td>
+                    <td>{{price}}</td>
+                    <td>{{color}}</td>
+                    <td>
+                        <!-- Nút sửa sản phẩm -->
+                        <button class="btn btn-primary" >Sửa</button>
+
+                        <!-- Nút xóa sản phẩm -->
+                        <button class="btn btn-danger" onclick="deleteProduct('{{_id}}')">Xóa</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <script>
+    function deleteProduct(productId) {
+      fetch(`/products/${productId}`, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message); // Show the response message
+        location.reload(); // Refresh the page to update the table
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
